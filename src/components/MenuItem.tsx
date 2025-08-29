@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { Pizza } from "../data/menu-items";
+import { useAppDispatch } from "../store/hooks";
+import { addItemToCart } from "../store/cartSlice";
 
 type MenuItemProps = {
   item: Pizza;
@@ -7,6 +9,7 @@ type MenuItemProps = {
 };
 const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
   const quantity = 0;
+  const dispatch = useAppDispatch();
   return (
     <div className="card px-4 card-side bg-base-300 shadow-xl">
       <figure className="w-32 min-w-32 mask mask-squircle">
@@ -17,7 +20,9 @@ const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
         <div>{item.ingredients.join(", ")}</div>
         <div className={`card-actions justify-between items-end`}>
           <b className="font-semibold">€{item.price}</b>
-          <button className="btn btn-primary">Add to Cart</button>
+          <button className="btn btn-primary" onClick={()=>{
+            dispatch(addItemToCart(item))
+          }}>Add to Cart</button>
           <div className="flex gap-4 items-center">
             {!readonly && (
               <button className="btn btn-sm md:btn-md btn-primary btn-circle">
