@@ -4,7 +4,7 @@ import { RootState } from "./store";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-type CartItem = Pizza & { quantity: number };
+export type CartItem = Pizza & { quantity: number };
 interface CartState {
     items: CartItem[];
 }
