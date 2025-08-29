@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Pizza } from "../data/menu-items";
+import { RootState } from "./store";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 type CartItem = Pizza & { quantity: number };
 interface CartState {
@@ -20,11 +23,48 @@ const cartSlice = createSlice({
                 matchingItem.quantity++;
             } else {
                 state.items.push({ ...action.payload, quantity: 1 });
-        }
-    }
+           }
+        },
+        removeItemFromCart: (state, action:PayloadAction<Pizza>) => {
+            state.items = state.items.filter(existingItem => existingItem.id !== action.payload.id);
+       },
+        quantityDecrementInCart: (state, action:PayloadAction<Pizza>) => {
+            const matchingItem = state.items.find((existingItem) => existingItem.id === action.payload.id);
+            if (matchingItem && matchingItem.quantity > 0) {
+                matchingItem.quantity--;
+            }
+       }
    }
 });
 
-export const { addItemToCart } = cartSlice.actions;
-const cartReducer = cartSlice.reducer;
-export default cartReducer;
+export const { addItemToCart,removeItemFromCart,quantityDecrementInCart } = cartSlice.actions;
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const persistedCartReducer = persistReducer(persistConfig, cartSlice.reducer);
+
+export default persistedCartReducer;
+
+export const selectCartItems = (state:RootState) =>{
+  return state.cart.items;
+} 
+
+export const selectTotalItemsInCart = (state:RootState) => { 
+    return state.cart.items.reduce((total, item) => total + item.quantity, 0);
+}
+
+export const selectTotalPriceInCart = (state:RootState) => { 
+    return state.cart.items.reduce((total, item) => total + item.price * item.quantity, 0);
+}
+
+export const selectQuantityPerItem = (item:Pizza) => {
+    return (state:RootState) => {
+    const matchingItemQuantity = state.cart.items.find((existingItem) => existingItem.id === item.id);
+    return matchingItemQuantity?.quantity || 0;
+    }
+}
+
+
+ 

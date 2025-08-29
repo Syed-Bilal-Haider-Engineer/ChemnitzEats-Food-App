@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { Pizza } from "../data/menu-items";
-import { useAppDispatch } from "../store/hooks";
-import { addItemToCart } from "../store/cartSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { addItemToCart, quantityDecrementInCart, removeItemFromCart, selectQuantityPerItem } from "../store/cartSlice";
 
 type MenuItemProps = {
   item: Pizza;
   readonly?: boolean;
 };
 const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
-  const quantity = 0;
   const dispatch = useAppDispatch();
+  const quantity = useAppSelector(selectQuantityPerItem(item))
   return (
     <div className="card px-4 card-side bg-base-300 shadow-xl">
       <figure className="w-32 min-w-32 mask mask-squircle">
@@ -20,12 +20,14 @@ const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
         <div>{item.ingredients.join(", ")}</div>
         <div className={`card-actions justify-between items-end`}>
           <b className="font-semibold">€{item.price}</b>
-          <button className="btn btn-primary" onClick={()=>{
+          { quantity == 0 ?<button className="btn btn-primary" onClick={()=>{
             dispatch(addItemToCart(item))
           }}>Add to Cart</button>
-          <div className="flex gap-4 items-center">
-            {!readonly && (
-              <button className="btn btn-sm md:btn-md btn-primary btn-circle">
+          :<div className="flex gap-4 items-center">
+            {!readonly && quantity !== 0 && (
+              <button className="btn btn-sm md:btn-md btn-primary btn-circle" onClick={() =>{
+                dispatch(quantityDecrementInCart(item))
+              }} >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -43,7 +45,9 @@ const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
             <span>{!readonly ? quantity : `Quantity: ${quantity}`}</span>
             {!readonly && (
               <>
-                <button className="btn btn-sm md:btn-md btn-primary btn-circle">
+                <button className="btn btn-sm md:btn-md btn-primary btn-circle"  onClick={()=>{
+                  dispatch(addItemToCart(item))
+                }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -57,7 +61,9 @@ const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
                     />
                   </svg>
                 </button>
-                <button className="btn btn-sm md:btn-md btn-primary ml-4">
+                <button className="btn btn-sm md:btn-md btn-primary ml-4" onClick={() =>{
+                dispatch(removeItemFromCart(item))
+              }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -77,7 +83,7 @@ const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
                 </button>{" "}
               </>
             )}
-          </div>
+          </div>}
         </div>
       </div>
     </div>
