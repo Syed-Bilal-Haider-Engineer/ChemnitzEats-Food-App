@@ -33,11 +33,14 @@ const cartSlice = createSlice({
             if (matchingItem && matchingItem.quantity > 0) {
                 matchingItem.quantity--;
             }
+       },
+       resetCart:(state) =>{
+        state.items = [];
        }
    }
 });
 
-export const { addItemToCart,removeItemFromCart,quantityDecrementInCart } = cartSlice.actions;
+export const { addItemToCart,removeItemFromCart,quantityDecrementInCart,resetCart } = cartSlice.actions;
 
 const persistConfig = {
   key: 'root',
@@ -65,6 +68,3 @@ export const selectQuantityPerItem = (item:Pizza) => {
     return matchingItemQuantity?.quantity || 0;
     }
 }
-
-
- 

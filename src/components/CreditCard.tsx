@@ -7,15 +7,19 @@ import {
 } from "../utils/card-utils";
 import Cards, { Focused } from "react-credit-cards-2";
 
-type CardState = {
-  number: string;
+type checkOutState ={
+   number: string;
   expiry: string;
   cvc: string;
   name: string;
+}
+type CardState =  checkOutState &{
   focus: undefined | Focused;
 };
-
-const CreditCard = () => {
+ interface CreditCardProps {
+    onSubmit: (data:checkOutState) => void;
+ }
+const CreditCard:React.FC<CreditCardProps> = (props) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [state, setState] = useState<CardState>({
     number: "",
@@ -48,7 +52,20 @@ const CreditCard = () => {
   };
 
   return (
-    <form ref={formRef} className="flex flex-col gap-4 items-center">
+    <form ref={formRef} onSubmit={(e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault();
+     console.log(state);
+     const {focus, ...data} = state;
+     props.onSubmit(data);
+     formRef.current?.reset();
+     setState({
+      number: "",
+      expiry: "",
+      cvc: "",
+      name: "",
+      focus: undefined,
+     });
+    }} className="flex flex-col gap-4 items-center">
       <Cards
         number={state.number}
         expiry={state.expiry}

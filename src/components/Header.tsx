@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAppSelector } from "../store/hooks";
 import { selectTotalItemsInCart, selectTotalPriceInCart } from "../store/cartSlice";
+import { formatPrice } from "../utils/price-utils";
 
 const Header = () => {
   const [isFocused, setIsFocused] = useState(false);
@@ -26,7 +27,7 @@ const Header = () => {
       <div className="flex-none">
         { totalPriceInCart > 0 ?<div className="font-semibold gap-1 flex">
           <span className="hidden md:flex">Cart total: </span>
-          <span>€{totalPriceInCart}</span>{" "}
+          <span>€{formatPrice(totalPriceInCart)}</span>
         </div>:''}
         <Link
           to="/cart"
