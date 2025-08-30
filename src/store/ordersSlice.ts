@@ -4,11 +4,11 @@ import storage from "redux-persist/lib/storage";
 import { CartItem } from "./cartSlice";
 import { RootState } from "./store";
 
-interface Order {
+export interface Order {
   id: string;
   items: CartItem[];
   total: number;
- creditCardNumber: string;
+  creditCardNumber: string;
   state: "pending" | "completed" | "failed";
 }
 

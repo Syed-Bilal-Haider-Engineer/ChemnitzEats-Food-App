@@ -20,7 +20,7 @@ const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
         <div>{item.ingredients.join(", ")}</div>
         <div className={`card-actions justify-between items-end`}>
           <b className="font-semibold">€{item.price}</b>
-          { quantity == 0 ?<button className="btn btn-primary" onClick={()=>{
+          { quantity == 0 && readonly !== true ?<button className="btn btn-primary" onClick={()=>{
             dispatch(addItemToCart(item))
           }}>Add to Cart</button>
           :<div className="flex gap-4 items-center">
