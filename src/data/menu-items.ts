@@ -4,8 +4,8 @@ export type Pizza = {
   price: number;
   image: string;
   id: string;
+  size: "small" | "medium" | "large";
 };
-
 export const MENU_ITEMS: Pizza[] = [
   {
     title: "Chemnitz Margherita",
@@ -13,6 +13,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 8.99,
     image: "margherita.webp",
     id: "f438d4e6-9b8c-49f5-9740-e513c0fecce7",
+    size: "medium",
   },
   {
     title: "Saxony Pepperoni",
@@ -20,6 +21,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 9.99,
     image: "pepperoni.webp",
     id: "044dbc0d-aae9-415d-877a-cc3da8f5a9f3",
+    size: "medium",
   },
   {
     title: "BBQ Chicken Chemnitz",
@@ -27,6 +29,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 10.99,
     image: "bbq-chicken.webp",
     id: "22f02922-7957-45a5-bef4-c8d86e867bf8",
+    size: "small",
   },
   {
     title: "Veggie Saxony",
@@ -34,6 +37,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 9.49,
     image: "veggie-delight.webp",
     id: "fd9596c7-db9b-4c1b-ad73-ff69ce156923",
+    size: "small",
   },
   {
     title: "Hawaiian Chemnitz",
@@ -41,6 +45,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 10.49,
     image: "hawaiian.webp",
     id: "092f1d7a-bd24-49b7-8078-4a097414276f",
+    size: "medium",
   },
   {
     title: "Meat Lovers Saxony",
@@ -48,6 +53,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 11.99,
     image: "meat-lovers.webp",
     id: "afdaeb05-6ad9-4ab7-8d6b-ab5aa12aed77",
+    size: "medium",
   },
   {
     title: "Four Cheese Chemnitz",
@@ -55,6 +61,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 10.49,
     image: "4-cheese.webp",
     id: "c4a3f995-391e-4218-a370-53b8df98c06a",
+    size: "large",
   },
   {
     title: "Spinach & Feta Saxony",
@@ -62,6 +69,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 9.99,
     image: "spinach-feta.webp",
     id: "0c427ecf-e84e-4d9f-9d8f-53ee3e08db9a",
+    size: "medium",
   },
   {
     title: "Supreme Chemnitz",
@@ -69,6 +77,7 @@ export const MENU_ITEMS: Pizza[] = [
     price: 12.49,
     image: "supreme.webp",
     id: "6840c4ee-926f-4747-984c-db4ae4017c43",
+    size: "large",
   },
   {
     title: "Mushroom & Truffle Saxony",
@@ -76,5 +85,6 @@ export const MENU_ITEMS: Pizza[] = [
     price: 11.49,
     image: "mushroom-truffle.webp",
     id: "1619af4a-21a4-4159-bb17-b1a74ccc9857",
+    size: "medium",
   },
 ];

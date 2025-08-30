@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import  { useState } from "react";
 import { useAppSelector } from "../store/hooks";
 import { selectTotalItemsInCart, selectTotalPriceInCart } from "../store/cartSlice";
 import { formatPrice } from "../utils/price-utils";
@@ -7,19 +7,31 @@ import { formatPrice } from "../utils/price-utils";
 const Header = () => {
   const [isFocused, setIsFocused] = useState(false);
   const totalItemsInCart: number = useAppSelector(selectTotalItemsInCart);
-  const totalPriceInCart: number = useAppSelector(selectTotalPriceInCart)
+  const totalPriceInCart: number = useAppSelector(selectTotalPriceInCart);
+  const [orderId, setOrderId] = useState<string>('');
+  const navigate = useNavigate();
   return (
     <div className="navbar bg-primary text-base-100 sticky top-0 z-40 gap-4">
       <Link to={"/"} className="btn btn-ghost text-xl">
         ChemnitzEats Pizza
       </Link>
-      <form className="flex-1 flex justify-end">
+      <form className="flex-1 flex justify-end" onSubmit={(e) =>{
+        e.preventDefault();
+        if(orderId.trim().length > 0){
+         navigate(`/order/${orderId}`);
+        }
+        setOrderId('');
+      }}>
         <input
           name="orderId"
           required
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          onChange={(e) =>{
+            setOrderId(e.target.value);
+          }}
           type="text"
+          value={orderId}
           placeholder={isFocused ? "Enter order#" : "Find your order"}
           className="input text-neutral-100 input-bordered w-full md:w-auto"
         />

@@ -43,7 +43,7 @@ const cartSlice = createSlice({
 export const { addItemToCart,removeItemFromCart,quantityDecrementInCart,resetCart } = cartSlice.actions;
 
 const persistConfig = {
-  key: 'root',
+  key: 'carts',
   storage,
 }
 const persistedCartReducer = persistReducer(persistConfig, cartSlice.reducer);

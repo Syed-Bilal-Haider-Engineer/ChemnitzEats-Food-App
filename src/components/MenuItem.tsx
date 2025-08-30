@@ -1,15 +1,14 @@
 import { FC } from "react";
-import { Pizza } from "../data/menu-items";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { addItemToCart, quantityDecrementInCart, removeItemFromCart, selectQuantityPerItem } from "../store/cartSlice";
+import { useAppDispatch } from "../store/hooks";
+import { addItemToCart, CartItem, quantityDecrementInCart, removeItemFromCart } from "../store/cartSlice";
 
-type MenuItemProps = {
-  item: Pizza;
+export type MenuItemProps = {
+  item: CartItem;
   readonly?: boolean;
 };
 const MenuItem: FC<MenuItemProps> = ({ item, readonly }) => {
   const dispatch = useAppDispatch();
-  const quantity = useAppSelector(selectQuantityPerItem(item))
+  const quantity = item.quantity;
   return (
     <div className="card px-4 card-side bg-base-300 shadow-xl">
       <figure className="w-32 min-w-32 mask mask-squircle">

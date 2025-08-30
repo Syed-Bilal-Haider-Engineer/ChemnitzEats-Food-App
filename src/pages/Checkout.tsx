@@ -6,6 +6,7 @@ import { resetCart, selectCartItems, selectTotalPriceInCart } from "../store/car
 import { createOrderId } from "../utils/order-utils";
 import { createOrder } from "../store/ordersSlice";
 import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../utils/price-utils";
 
 const Checkout = () => {
 
@@ -41,7 +42,6 @@ const Checkout = () => {
           </h2>
           <div className="overflow-x-auto">
             <table className="table">
-              {/* head */}
               <thead>
                 <tr>
                   <th>Name</th>
@@ -60,7 +60,7 @@ const Checkout = () => {
                 <tr className="font-semibold">
                   <td>Subtotal: </td>
                   <td></td>
-                  <td>€{totalPriceInCart}</td>
+                  <td>€{formatPrice(totalPriceInCart)}</td>
                 </tr>
               </tbody>
             </table>
