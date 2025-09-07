@@ -26,7 +26,6 @@ Check out the application here: https://chemnitz-eats-foodi.vercel.app/
 ---
 
 ## 📸 Screenshots
-_Add screenshots or GIFs here to showcase the UI_
 <img width="1913" height="858" alt="image" src="https://github.com/user-attachments/assets/9c2fd0d3-e56c-409b-8356-5df9a94febbe" />
 
 ---
